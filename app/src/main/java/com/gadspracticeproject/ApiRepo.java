@@ -1,6 +1,7 @@
 package com.gadspracticeproject;
 
 import com.gadspracticeproject.Models.LeaderModel;
+import com.gadspracticeproject.Models.SkillIqModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +18,7 @@ public interface ApiRepo {
     Call<ArrayList<LeaderModel>> getHours();
 
     @GET("api/skilliq")
-    Call<List<LeaderModel>> getIq();
+    Call<ArrayList<SkillIqModel>> getIq();
 
 
     @FormUrlEncoded

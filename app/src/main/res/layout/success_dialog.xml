@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:layout_gravity="center_horizontal"
-        android:text="Submission not Successful"
+        android:text="Submission Successful"
         android:textColor="@color/grey_800"
         android:textSize="22sp"
         android:textStyle="bold" />

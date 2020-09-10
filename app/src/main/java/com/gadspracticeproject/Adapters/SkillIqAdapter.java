@@ -9,29 +9,28 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.gadspracticeproject.Models.LeaderModel;
+import com.gadspracticeproject.Models.SkillIqModel;
 import com.gadspracticeproject.R;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class LearningLeadersAdapter extends RecyclerView.Adapter<LearningLeadersAdapter.ViewHolder> {
-    private static final String TAG = "LearningLeadersAdapter";
+public class SkillIqAdapter extends RecyclerView.Adapter<SkillIqAdapter.ViewHolder> {
+    private static final String TAG = "SkillIqAdapter";
 
-    private List<LeaderModel> leaderModelList;
+    private List<SkillIqModel> skillIqModels;
     private Context mContext;
 
-    public void setData(List<LeaderModel> leaderModelList){
-        this.leaderModelList = leaderModelList;
+    public void setData(List<SkillIqModel> skillIqModels){
+        this.skillIqModels = skillIqModels;
     }
 
-    public LearningLeadersAdapter(Context context) {
+    public SkillIqAdapter(Context context) {
         this.mContext = context;
     }
 
@@ -42,30 +41,30 @@ public class LearningLeadersAdapter extends RecyclerView.Adapter<LearningLeaders
     public ViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
         Log.d(TAG, "onCreateViewHolder: created");
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.learning_leader_item,parent,false);
+                .inflate(R.layout.skill_iq_item,parent,false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull ViewHolder holder, int position) {
-        LeaderModel leaderModel = leaderModelList.get(position);
+        SkillIqModel skillIqModel  = skillIqModels.get(position);
         Log.d(TAG, "onBindViewHolder: Setting Items");
-        Glide.with(mContext).asBitmap().load(leaderModel.getLeaderImage()).into(holder.leaderImage);
+        Glide.with(mContext).asBitmap().load(skillIqModel.getLeaderImage()).into(holder.leaderImage);
 
-        holder.leader.setText(leaderModel.getLeaderName());
-        String hours = leaderModel.getLearningHrs()+ " learning hours, "+leaderModel.getLeaderLocation();
+        holder.leader.setText(skillIqModel.getLeaderName());
+        String hours = skillIqModel.getIqScore()+ " skill IQ Score, "+skillIqModel.getLeaderLocation();
         holder.hours.setText(hours);
     }
 
     @Override
     public int getItemCount() {
-        return leaderModelList.size();
+        return skillIqModels.size();
     }
 
     public class  ViewHolder extends RecyclerView.ViewHolder{
 
         ImageView leaderImage;
-        TextView leader, hours, location;
+        TextView leader, hours;
 
         public ViewHolder(@NonNull @NotNull View itemView) {
             super(itemView);

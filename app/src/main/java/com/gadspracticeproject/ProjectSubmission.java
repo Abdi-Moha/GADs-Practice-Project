@@ -1,22 +1,16 @@
 package com.gadspracticeproject;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
-
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-
-import com.gadspracticeproject.Models.LeaderModel;
-
-import java.util.ArrayList;
+import android.widget.Toast;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -40,29 +34,23 @@ public class ProjectSubmission extends AppCompatActivity {
         setContentView(R.layout.activity_project_submission);
         setUpUi();
 
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
+        back.setOnClickListener(view -> finish());
+
+
+        submit.setOnClickListener(view -> {
+            Log.d(TAG, "onClick: Clicked");
+            if(firstName.isEmpty()|| lastName.isEmpty()|| emailAddress.isEmpty()||projectLink.isEmpty()){
+                Toast.makeText(this, "All fields are required", Toast.LENGTH_SHORT).show();
+
+                Log.d(TAG, "onClick: Empty");
+
+            }else{
+                showConfirmationDialog();
             }
-        });
-        submit = findViewById(R.id.submit_button);
-
-        submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d(TAG, "onClick: Clicked");
-                if(firstName.isEmpty()|| lastName.isEmpty()|| emailAddress.isEmpty()||projectLink.isEmpty()){
-                    //TODO: Show not empty
-
-                }else{
-                    showConfirmationDialog();
-                }
 
 
 
 
-            }
         });
     }
     private void setUpUi(){
@@ -71,6 +59,7 @@ public class ProjectSubmission extends AppCompatActivity {
          first = findViewById(R.id.first_name);
          last = findViewById(R.id.last_name);
          link = findViewById(R.id.project_link);
+        submit = findViewById(R.id.submit_button);
 
        firstName= first.getText().toString();
        lastName =last.getText().toString();
@@ -87,23 +76,15 @@ public class ProjectSubmission extends AppCompatActivity {
         confirmationDialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
         AppCompatButton confirmButton = confirmationDialog.findViewById(R.id.confirm_button);
         ImageButton cancel = confirmationDialog.findViewById(R.id.cancel_button);
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                confirmationDialog.dismiss();
-            }
-        });
-        confirmButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                confirmationDialog.dismiss();
-                progressDialog.show();
-                sendPostRequest();
+        cancel.setOnClickListener(view -> confirmationDialog.dismiss());
+        confirmButton.setOnClickListener(view -> {
+            confirmationDialog.dismiss();
+            progressDialog.show();
+            sendPostRequest();
 
 
-                Log.d(TAG, "onClick: Confirm");
+            Log.d(TAG, "onClick: Confirm");
 
-            }
         });
         confirmationDialog.show();
 

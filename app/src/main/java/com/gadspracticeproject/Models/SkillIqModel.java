@@ -2,29 +2,30 @@ package com.gadspracticeproject.Models;
 
 import com.google.gson.annotations.SerializedName;
 
-public class LeaderModel {
+public class SkillIqModel {
     @SerializedName("badgeUrl")
     String leaderImage;
     @SerializedName("name")
     String leaderName;
     @SerializedName("country")
     String leaderLocation;
-    @SerializedName("hours")
-    String learningHrs;
+    @SerializedName("score")
+    String iqScore;
 
-    public LeaderModel() {
+    public SkillIqModel() {
     }
 
-    public LeaderModel(String leaderImage, String leaderName, String leaderLocation, String learningHrs) {
+    public SkillIqModel(String leaderImage, String leaderName, String leaderLocation, String iqScore) {
         this.leaderImage = leaderImage;
         this.leaderName = leaderName;
         this.leaderLocation = leaderLocation;
-        this.learningHrs = learningHrs;
+        this.iqScore = iqScore;
     }
 
     public String getLeaderImage() {
         return leaderImage;
     }
+
 
     public String getLeaderName() {
         return leaderName;
@@ -35,7 +36,7 @@ public class LeaderModel {
         return leaderLocation;
     }
 
-    public String getLearningHrs() {
-        return learningHrs;
+    public String getIqScore() {
+        return iqScore;
     }
 }

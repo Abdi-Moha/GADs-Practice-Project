@@ -26,13 +26,10 @@ public class MainActivity extends AppCompatActivity {
 
         submit = findViewById(R.id.submit);
 
-        submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d(TAG, "onClick: Clicked");
-                Intent intent = new Intent(MainActivity.this, ProjectSubmission.class);
-                startActivity(intent);
-            }
+        submit.setOnClickListener(view -> {
+            Log.d(TAG, "onClick: Clicked");
+            Intent intent = new Intent(MainActivity.this, ProjectSubmission.class);
+            startActivity(intent);
         });
         tabLayout = findViewById(R.id.tabLayout);
         viewPager = findViewById(R.id.viewPager);
@@ -46,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
+                Log.d(TAG, "onTabSelected: Tab Changed");
                 viewPager.setCurrentItem(tab.getPosition());
             }
 

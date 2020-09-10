@@ -3,64 +3,101 @@ package com.gadspracticeproject.Tabs;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.gadspracticeproject.Adapters.LearningLeadersAdapter;
+import com.gadspracticeproject.Adapters.SkillIqAdapter;
+import com.gadspracticeproject.ApiRepo;
+import com.gadspracticeproject.Models.LeaderModel;
+import com.gadspracticeproject.Models.SkillIqModel;
 import com.gadspracticeproject.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link SkillIqLeaders#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class SkillIqLeaders extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    ArrayList<SkillIqModel> skillIqModels;
+    private static final String TAG = "LearningLeaders";
+    RecyclerView recyclerView;
+    SkillIqAdapter adapter;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public SkillIqLeaders() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment SkillIqLeaders.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static SkillIqLeaders newInstance(String param1, String param2) {
-        SkillIqLeaders fragment = new SkillIqLeaders();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_skill_iq_leaders, container, false);
+
+        View view = inflater.inflate(R.layout.fragment_skill_iq_leaders, container, false);
+
+        Log.d(TAG, "onCreateView: Layout Inflated");
+        //Implementing recyclerview;
+        recyclerView = view.findViewById(R.id.skilIq_recycler_view);
+        recyclerView.setHasFixedSize(true);
+        LinearLayoutManager linearLayoutManager= new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), linearLayoutManager.getOrientation()));
+
+        adapter = new SkillIqAdapter(getActivity());
+
+        skillIqModels = new ArrayList<>();
+
+        Log.d(TAG, "onCreateView: Adapter Set");
+
+        // getting network Requests
+        getPosts();
+
+        return view;
+    }
+
+    private  void getPosts(){
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://gadsapi.herokuapp.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        Log.d(TAG, "onCreateView: Retrofit Gotten");
+        ApiRepo apiRepo = retrofit.create(ApiRepo.class);
+        Call<ArrayList<SkillIqModel>> call = apiRepo.getIq();
+        Log.d(TAG, "onCreateView: Repo Created Gotten");
+        call.enqueue(new Callback<ArrayList<SkillIqModel>>() {
+            @Override
+            public void onResponse(Call<ArrayList<SkillIqModel>> call, Response<ArrayList<SkillIqModel>> response) {
+                Log.d(TAG, "onCreateView: Data Gotten");
+
+                if(!response.isSuccessful()){
+                    Log.d(TAG, "onResponse: "+ response.message());
+                }
+
+                ArrayList<SkillIqModel> skillIqModels = response.body();
+                adapter.setData(skillIqModels);
+                recyclerView.setAdapter(adapter);
+
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<SkillIqModel>> call, Throwable t) {
+                Log.d(TAG, "onFailure: "+t.getMessage());
+
+            }
+        });
+
+
     }
 }
