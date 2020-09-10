@@ -51,7 +51,7 @@ public class SkillIqLeaders extends Fragment {
         //Implementing recyclerview;
         recyclerView = view.findViewById(R.id.skilIq_recycler_view);
         recyclerView.setHasFixedSize(true);
-        LinearLayoutManager linearLayoutManager= new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), linearLayoutManager.getOrientation()));
 
@@ -67,7 +67,7 @@ public class SkillIqLeaders extends Fragment {
         return view;
     }
 
-    private  void getPosts(){
+    private void getPosts() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://gadsapi.herokuapp.com/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -81,8 +81,8 @@ public class SkillIqLeaders extends Fragment {
             public void onResponse(Call<ArrayList<SkillIqModel>> call, Response<ArrayList<SkillIqModel>> response) {
                 Log.d(TAG, "onCreateView: Data Gotten");
 
-                if(!response.isSuccessful()){
-                    Log.d(TAG, "onResponse: "+ response.message());
+                if (!response.isSuccessful()) {
+                    Log.d(TAG, "onResponse: " + response.message());
                 }
 
                 ArrayList<SkillIqModel> skillIqModels = response.body();
@@ -93,7 +93,7 @@ public class SkillIqLeaders extends Fragment {
 
             @Override
             public void onFailure(Call<ArrayList<SkillIqModel>> call, Throwable t) {
-                Log.d(TAG, "onFailure: "+t.getMessage());
+                Log.d(TAG, "onFailure: " + t.getMessage());
 
             }
         });

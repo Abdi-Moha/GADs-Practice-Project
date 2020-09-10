@@ -26,7 +26,7 @@ public class SkillIqAdapter extends RecyclerView.Adapter<SkillIqAdapter.ViewHold
     private List<SkillIqModel> skillIqModels;
     private Context mContext;
 
-    public void setData(List<SkillIqModel> skillIqModels){
+    public void setData(List<SkillIqModel> skillIqModels) {
         this.skillIqModels = skillIqModels;
     }
 
@@ -41,18 +41,18 @@ public class SkillIqAdapter extends RecyclerView.Adapter<SkillIqAdapter.ViewHold
     public ViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
         Log.d(TAG, "onCreateViewHolder: created");
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.skill_iq_item,parent,false);
+                .inflate(R.layout.skill_iq_item, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull ViewHolder holder, int position) {
-        SkillIqModel skillIqModel  = skillIqModels.get(position);
+        SkillIqModel skillIqModel = skillIqModels.get(position);
         Log.d(TAG, "onBindViewHolder: Setting Items");
         Glide.with(mContext).asBitmap().load(skillIqModel.getLeaderImage()).into(holder.leaderImage);
 
         holder.leader.setText(skillIqModel.getLeaderName());
-        String hours = skillIqModel.getIqScore()+ " skill IQ Score, "+skillIqModel.getLeaderLocation();
+        String hours = skillIqModel.getIqScore() + " skill IQ Score, " + skillIqModel.getLeaderLocation();
         holder.hours.setText(hours);
     }
 
@@ -61,7 +61,7 @@ public class SkillIqAdapter extends RecyclerView.Adapter<SkillIqAdapter.ViewHold
         return skillIqModels.size();
     }
 
-    public class  ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView leaderImage;
         TextView leader, hours;

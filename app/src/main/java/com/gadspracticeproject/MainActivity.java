@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
     AppCompatButton submit;
     ViewPager viewPager;
     private static final String TAG = "MainActivity";
-    
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setText("Skill IQ Leaders"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         final TabAdapter adapter = new TabAdapter(this, getSupportFragmentManager(),
-        tabLayout.getTabCount());
+                tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -57,7 +57,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
 
 
     }

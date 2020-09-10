@@ -27,7 +27,7 @@ public class LearningLeadersAdapter extends RecyclerView.Adapter<LearningLeaders
     private List<LeaderModel> leaderModelList;
     private Context mContext;
 
-    public void setData(List<LeaderModel> leaderModelList){
+    public void setData(List<LeaderModel> leaderModelList) {
         this.leaderModelList = leaderModelList;
     }
 
@@ -42,7 +42,7 @@ public class LearningLeadersAdapter extends RecyclerView.Adapter<LearningLeaders
     public ViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
         Log.d(TAG, "onCreateViewHolder: created");
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.learning_leader_item,parent,false);
+                .inflate(R.layout.learning_leader_item, parent, false);
         return new ViewHolder(view);
     }
 
@@ -53,7 +53,7 @@ public class LearningLeadersAdapter extends RecyclerView.Adapter<LearningLeaders
         Glide.with(mContext).asBitmap().load(leaderModel.getLeaderImage()).into(holder.leaderImage);
 
         holder.leader.setText(leaderModel.getLeaderName());
-        String hours = leaderModel.getLearningHrs()+ " learning hours, "+leaderModel.getLeaderLocation();
+        String hours = leaderModel.getLearningHrs() + " learning hours, " + leaderModel.getLeaderLocation();
         holder.hours.setText(hours);
     }
 
@@ -62,7 +62,7 @@ public class LearningLeadersAdapter extends RecyclerView.Adapter<LearningLeaders
         return leaderModelList.size();
     }
 
-    public class  ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView leaderImage;
         TextView leader, hours, location;

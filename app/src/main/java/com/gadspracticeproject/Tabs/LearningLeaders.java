@@ -51,7 +51,7 @@ public class LearningLeaders extends Fragment {
         //Implementing recyclerview;
         recyclerView = view.findViewById(R.id.leader_recycler_view);
         recyclerView.setHasFixedSize(true);
-        LinearLayoutManager linearLayoutManager= new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), linearLayoutManager.getOrientation()));
 
@@ -67,7 +67,7 @@ public class LearningLeaders extends Fragment {
         return view;
     }
 
-    private  void getPosts(){
+    private void getPosts() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://gadsapi.herokuapp.com/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -81,8 +81,8 @@ public class LearningLeaders extends Fragment {
             public void onResponse(Call<ArrayList<LeaderModel>> call, Response<ArrayList<LeaderModel>> response) {
                 Log.d(TAG, "onCreateView: Data Gotten");
 
-                if(!response.isSuccessful()){
-                    Log.d(TAG, "onResponse: "+ response.message());
+                if (!response.isSuccessful()) {
+                    Log.d(TAG, "onResponse: " + response.message());
                 }
 
                 ArrayList<LeaderModel> leaderModel = response.body();
@@ -93,7 +93,7 @@ public class LearningLeaders extends Fragment {
 
             @Override
             public void onFailure(Call<ArrayList<LeaderModel>> call, Throwable t) {
-                Log.d(TAG, "onFailure: "+t.getMessage());
+                Log.d(TAG, "onFailure: " + t.getMessage());
 
             }
         });

@@ -13,7 +13,8 @@ import com.gadspracticeproject.Tabs.SkillIqLeaders;
 class TabAdapter extends FragmentPagerAdapter {
     Context context;
     int totalTabs;
-    public TabAdapter(Context context, FragmentManager fragmentManager, int totalTabs){
+
+    public TabAdapter(Context context, FragmentManager fragmentManager, int totalTabs) {
         super(fragmentManager, FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         this.context = context;
         this.totalTabs = totalTabs;
